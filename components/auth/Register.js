@@ -4,7 +4,7 @@ import firebase from 'firebase';
 
 export class Register extends Component {
     constructor(props) {
-        super();
+        super(props);
 
         this.state = {
             email: "",

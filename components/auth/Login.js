@@ -4,7 +4,7 @@ import firebase from 'firebase';
 
 export class Login extends Component {
     constructor(props) {
-        super();
+        super(props);
 
         this.state = {
             email: "",
@@ -16,7 +16,7 @@ export class Login extends Component {
 
     onSignIn(){
         const {email, password} = this.state
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        firebase.auth().signInWithEmailAndPassword(email, password)
         .then((response)=>{
             console.log(response);
         })
@@ -31,7 +31,7 @@ export class Login extends Component {
           {/* <TextInput placeholder='name' onChangeText={(name) => this.setState({name})}/> */}
           <TextInput placeholder='email' onChangeText={(email) => this.setState({email})}/>
           <TextInput secureTextEntry={true} placeholder='password' onChangeText={(password) => this.setState({password})}/>
-          <Button onPress={()=> this.onSignUp()} title={"Sign IN"}/>
+          <Button onPress={()=> this.onSignIn()} title={"Sign IN"}/>
       </View>
     )
   }

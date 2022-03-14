@@ -5,6 +5,9 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import 'react-native-gesture-handler';
 import * as firebase from "firebase";
+import React, { Component } from 'react'
+import { View, Text } from 'react-native';
+ 
 
 const firebaseConfig = {
   apiKey: "AIzaSyBZNwzJ06cJUM88JbbzIrpV-ge0sP7m3AY",
@@ -22,15 +25,67 @@ if(firebase.apps.length === 0){
 
 const Stack = createStackNavigator();
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Landing'>
-         <Stack.Screen name='Landing' component={Landing} options={{headerShown: false}}/>
-         <Stack.Screen name='Register' component={Register}/>
-         <Stack.Screen name='Login' component={Login}/>
-      </Stack.Navigator>    
-    </NavigationContainer>
-  );
+export default class App extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      loaded: false,
+      loggedIn: false,
+    }
+  }
+
+  componentDidMount(){
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log(user)
+      if(!user){
+        this.setState({
+          loaded: true,
+          loggedIn: false,
+        })
+      }else{
+        this.setState({
+          loaded: true,
+          loggedIn: true,
+        })
+      }
+    })
+  }
+
+  render() {
+
+    const {loaded, loggedIn} = this.state;
+
+    if(!loaded){
+      return(
+        <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+           <Text>Loading...</Text>
+        </View>
+      )
+    }
+
+    if(!loggedIn){
+      return (
+        <NavigationContainer>
+        <Stack.Navigator initialRouteName='Landing'>
+           <Stack.Screen name='Landing' component={Landing} options={{headerShown: false}}/>
+           <Stack.Screen name='Register' component={Register}/>
+           <Stack.Screen name='Login' component={Login}/>
+        </Stack.Navigator>    
+      </NavigationContainer>
+      )
+    }
+
+    if(loggedIn){
+      return (
+        <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+           <Text>Welcome back!</Text>
+        </View>
+      )
+    }
+
+  }
 }
+
 

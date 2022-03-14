@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Landing from './components/auth/Landing';
 import Register from './components/auth/Register';
-import { ENV_VAR } from "@env" 
+import Login from './components/auth/Login';
 import 'react-native-gesture-handler';
 import * as firebase from "firebase";
 
@@ -16,8 +16,6 @@ const firebaseConfig = {
   measurementId: "G-CSQEGWXF8R"
 };
 
-console.log(ENV_VAR.apiKey )
-
 if(firebase.apps.length === 0){
   firebase.initializeApp(firebaseConfig);
 }
@@ -30,6 +28,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='Landing'>
          <Stack.Screen name='Landing' component={Landing} options={{headerShown: false}}/>
          <Stack.Screen name='Register' component={Register}/>
+         <Stack.Screen name='Login' component={Login}/>
       </Stack.Navigator>    
     </NavigationContainer>
   );

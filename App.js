@@ -1,14 +1,26 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
+
+
 import Landing from './components/auth/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import 'react-native-gesture-handler';
+import Main from './components/Main';
+
 import * as firebase from "firebase";
+
 import React, { Component } from 'react'
 import { View, Text } from 'react-native';
- 
 
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux'; 
+import rootReducer from "./redux/reducers/index"
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk))); 
+ 
 const firebaseConfig = {
   apiKey: "AIzaSyBZNwzJ06cJUM88JbbzIrpV-ge0sP7m3AY",
   authDomain: "instagram-clone-54632.firebaseapp.com",
@@ -67,21 +79,21 @@ export default class App extends Component {
 
     if(!loggedIn){
       return (
-        <NavigationContainer>
-        <Stack.Navigator initialRouteName='Landing'>
-           <Stack.Screen name='Landing' component={Landing} options={{headerShown: false}}/>
-           <Stack.Screen name='Register' component={Register}/>
-           <Stack.Screen name='Login' component={Login}/>
-        </Stack.Navigator>    
-      </NavigationContainer>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName='Landing'>
+              <Stack.Screen name='Landing' component={Landing} options={{headerShown: false}}/>
+              <Stack.Screen name='Register' component={Register}/>
+              <Stack.Screen name='Login' component={Login}/>
+            </Stack.Navigator>    
+          </NavigationContainer>
       )
     }
 
     if(loggedIn){
       return (
-        <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-           <Text>Welcome back!</Text>
-        </View>
+        <Provider store={store}>
+          <Main/>
+        </Provider>
       )
     }
 

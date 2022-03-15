@@ -27,12 +27,12 @@ export class Main extends Component {
   render() {
     //   const {currentUser} = this.props;
     return (
-        <Tab.Navigator>
-            <Tab.Screen name="Feed" component={Feed} 
+        <Tab.Navigator initialRouteName='Feed' labeled={false}>
+            <Tab.Screen name="Feed" component={Feed}
             options={{tabBarIcon: ({color}) => (
                 <MaterialCommunityIcons name="home" size={26} color={color}/>
             )}}/>
-            <Tab.Screen name="Add" component={EmptyScreen} 
+            <Tab.Screen name="Addmedia" component={EmptyScreen} 
             listeners={({navigation}) => (
                 {
                     tabPress: e => {e.preventDefault(); navigation.navigate("Add")}

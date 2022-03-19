@@ -17,6 +17,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Main from './components/Main';
 import Add from './components/main/Add'
+import Save from './components/main/Save'
 
 
 import * as firebase from "firebase";
@@ -107,6 +108,7 @@ export default class App extends Component {
             <Stack.Navigator initialRouteName='Main'>
               <Stack.Screen name='Main' component={Main} options={{headerShown: false}}/>
               <Stack.Screen name='Add' component={Add} />
+              <Stack.Screen name='Save' component={Save} />
             </Stack.Navigator> 
           </NavigationContainer>
         </Provider>

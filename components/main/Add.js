@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from "expo-image-picker";
 
-export default function App() {
+export default function App({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
   const [image, setImage] = useState(null);
@@ -39,7 +39,7 @@ export default function App() {
     }
   }
 
-  console.log(image)
+  console.log(image, "---camera")
 
   if (hasPermission === null) {
     return <View />;
@@ -71,6 +71,9 @@ export default function App() {
         ></Button>
         <Button title="Capture" onPress={takePicture} />
         <Button title="Pick Image From Gallery" onPress={pickImage} />
+        {image && (
+          <Button title="Save Image" onPress={navigation.navigate("Save", {image})} />
+        )}
       </View>
       {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
     </View>

@@ -6,7 +6,7 @@ import firebase from "firebase";
 require("firebase/firestore");
 require("firebase/firebase-storage");
 
-export default function Save(props, {navigation}) {
+export default function Save(props) {
   // Fire store image upload to path
   const childPath = `post/${
     firebase.auth().currentUser.uid
@@ -14,6 +14,7 @@ export default function Save(props, {navigation}) {
 
   // Text input caption state
   const [caption, setCaption] = useState();
+  console.log(props, "-------props")
 
   // This function handles image upload to firebase storage
   const uploadImage = async () => {
@@ -60,7 +61,7 @@ export default function Save(props, {navigation}) {
         creation: firebase.firestore.FieldValue.serverTimestamp()
       })
       .then((function(){
-        navigation.popToTop();
+        props.navigation.popToTop();
         console.log("----------sucess")
       })).catch(
         console.error

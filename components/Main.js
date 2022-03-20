@@ -9,7 +9,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {fetchUser} from "../redux/action/index" 
+import { fetchUser, fetchUserPosts } from "../redux/action/index"; 
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -22,6 +22,7 @@ export class Main extends Component {
 
   componentDidMount(){
     this.props.fetchUser();
+    this.props.fetchUserPosts();
     }
 
   render() {
@@ -50,7 +51,7 @@ export class Main extends Component {
   }
 }
 
-const mapDispatchProps = (dispatch) => bindActionCreators({fetchUser}, dispatch);
+const mapDispatchProps = (dispatch) => bindActionCreators({fetchUser, fetchUserPosts}, dispatch);
 const mapStateProps = (store) => {
     return {
         currentUser: store.userState.currentUser

@@ -95,14 +95,26 @@ export default class App extends Component {
       return (
         <Provider store={store}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName='Main'>
-              <Stack.Screen name='Main' component={Main} options={{headerShown: false}}/>
-              <Stack.Screen name='Add' component={Add} navigation={this.props.navigation } />
-              <Stack.Screen name='Save' component={Save} />
-            </Stack.Navigator> 
+            <Stack.Navigator initialRouteName="Main">
+              <Stack.Screen
+                name="Main"
+                component={Main}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Add"
+                component={Add}
+                navigation={this.props.navigation}
+              />
+              <Stack.Screen
+                name="Save"
+                component={Save}
+                navigation={this.props.navigation}
+              />
+            </Stack.Navigator>
           </NavigationContainer>
         </Provider>
-      )
+      );
     }
 
   }

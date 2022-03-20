@@ -10,6 +10,7 @@ export default function App({ navigation }) {
   const [type, setType] = useState(Camera.Constants.Type.back);
 
   useEffect(() => {
+    // Get camara permission on device
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
@@ -32,6 +33,7 @@ export default function App({ navigation }) {
     }
   };
 
+  // Take picture on click button function
   const takePicture = async () => {
     if (camera) {
       const data = await camera.takePictureAsync(null);
@@ -49,7 +51,8 @@ export default function App({ navigation }) {
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
         <Camera
-          ref={(ref) => setCamera(ref)}
+        // set camera object to state
+          ref={(ref) => setCamera(ref)} 
           style={styles.camera}
           type={type}
           ratio={"1:1"}

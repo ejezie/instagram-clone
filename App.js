@@ -21,8 +21,10 @@ import rootReducer from "./redux/reducers/index"
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
+// Create redux store
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk))); 
  
+// firebase config 
 const firebaseConfig = {
   apiKey: "AIzaSyBZNwzJ06cJUM88JbbzIrpV-ge0sP7m3AY",
   authDomain: "instagram-clone-54632.firebaseapp.com",
@@ -33,10 +35,12 @@ const firebaseConfig = {
   measurementId: "G-CSQEGWXF8R"
 };
 
+// Initialise firebase
 if(firebase.apps.length === 0){
   firebase.initializeApp(firebaseConfig);
 }
 
+// Initialise stack navigator
 const Stack = createStackNavigator();
 
 export default class App extends Component {
@@ -51,8 +55,8 @@ export default class App extends Component {
   }
 
   componentDidMount(){
+    // Listen for authentification state change
     firebase.auth().onAuthStateChanged((user) => {
-      // console.log(user, "----------user---line53")
       if(!user){
         this.setState({
           loaded: true,
